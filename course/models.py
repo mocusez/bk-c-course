@@ -203,3 +203,30 @@ class StudentPaperContact(models.Model):
     status = models.CharField('状态', max_length=10, choices=STATUS)
     score = models.FloatField('总分', blank=True, null=True, default=0)
     cumulative_time = models.DurationField('答题累计时间', default=timedelta(seconds=0))
+    
+    class QuestionPhaseTwo(models.Model):
+    class QuestionTypes:
+        SINGLE = 'SINGLE'
+        MULTIPLE = 'MULTIPLE'
+        COMPLETION = 'COMPLETION'
+
+    QuestionTYPES = [
+        (QuestionTypes.SINGLE, '单选题'),
+        (QuestionTypes.MULTIPLE, '多选题'),
+        (QuestionTypes.COMPLETION, '填空题'),
+    ]
+
+    types = models.CharField('题目类型', max_length=20, choices=QuestionTYPES)
+    question_id = models.IntegerField('题号', default=0)
+    type = models.IntegerField('类型', default=0)
+    question = models.TextField('题目')
+    option_A = models.TextField('选项A', blank=True, null=True)
+    option_B = models.TextField('选项B', blank=True, null=True)
+    option_C = models.TextField('选项C', blank=True, null=True)
+    option_D = models.TextField('选项D', blank=True, null=True)
+    option_E = models.TextField('选项E', blank=True, null=True)
+    answer = models.TextField('问题答案')
+    explain = models.TextField('答案解析', blank=True, null=True, default='无')
+    remarks = models.TextField('备注', blank=True, null=True, default='无')
+    difficulty = models.IntegerField('难度', default=0)
+    discipline = models.CharField('所属学科', max_length=40, default='无')
