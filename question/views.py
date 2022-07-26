@@ -12,9 +12,15 @@ specific Language governing permissions and limitations under the License.
 from rest_framework import generics
 
 from question.models import Question
-from question.serializer import QuestionSerializer
+from question.serializer import QuestionSerializer,QuestionFilter
 
 
 class QuestionList(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
+class KeywordSearch(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    filterset_class = QuestionFilter
+    filter_fields = ['title']

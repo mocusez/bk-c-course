@@ -203,3 +203,24 @@ class StudentPaperContact(models.Model):
     status = models.CharField('状态', max_length=10, choices=STATUS)
     score = models.FloatField('总分', blank=True, null=True, default=0)
     cumulative_time = models.DurationField('答题累计时间', default=timedelta(seconds=0))
+
+# 数据表名 应用名_类名
+class Binary_tree_1(models.Model):
+    img = models.BinaryField('图片')
+    frontanswer = models.CharField('层次遍历', max_length=255, null=True)
+    firstanswer = models.CharField('前序遍历', max_length=255)
+    middleanswer = models.CharField('中序遍历', max_length=255)
+    endanswer = models.CharField('后序遍历', max_length=255)
+    explain = models.CharField('备注', max_length=255)
+
+    '''class Meta:
+        db_table = 'tree_1'  # 指明数据库表名
+        verbose_name = '图书'  # 在admin站点中显示的名称
+        verbose_name_plural = verbose_name  # 显示的复数名称'''
+
+    '''def __str__(self):
+        """定义每个数据对象的显示信息"""
+        return self.explain'''
+# CharField和DateTimeField----数据类型
+# max_length----最大长度
+# auto_now_add----默认时间为创建时间

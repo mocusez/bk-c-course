@@ -9,10 +9,11 @@ Unless required by applicable Law or agreed to in writing, software distributed 
 an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific Language governing permissions and limitations under the License.
 """
+
 from rest_framework import serializers
-
 from question.models import Question
-
+import django_filters
+from django_filters.rest_framework import FilterSet
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,3 +30,13 @@ class QuestionShowSerializer(serializers.ModelSerializer):
 
     def get_types(self, data):
         return data.get_types_display()
+
+class QuestionFilter(FilterSet):
+    """
+    根据title字段的过滤器
+    """
+    title = django_filters.CharFilter(field_name='title', lookup_expr="icontains")
+
+    class Meta:
+        model = Question
+        fields = ['title']
