@@ -29,3 +29,14 @@ class QuestionShowSerializer(serializers.ModelSerializer):
 
     def get_types(self, data):
         return data.get_types_display()
+
+
+class QuestionFilter(FilterSet):
+    """
+    根据title字段的过滤器
+    """
+    title = django_filters.CharFilter(field_name='title', lookup_expr="icontains")
+
+    class Meta:
+        model = Question
+        fields = ['title']

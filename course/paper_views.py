@@ -20,7 +20,10 @@ from .models import (
     StudentAnswer,
     StudentPaperContact,
     UserCourseContact, Chapter, Course,
+    Binary_tree_1,
 )
+
+from algorithm import huffman
 
 logger = logging.getLogger("root")
 
@@ -1103,3 +1106,78 @@ def check_students_score(request):
             'code': 200,
             'data': return_data,
         })
+
+
+# 批量绘制图片+批量存储
+# 将图片存储在指定文件夹（附带创建文件夹）+用循环创建文件名
+def log(request):
+    if request.method == "POST":
+        try:
+            string_list = [
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'l', 'm', 'm', 'l', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+            ]
+            number_list = [
+                '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'
+            ]
+            strings_str = ""
+            for pop in string_list:
+                strings = request.POST.get(pop)
+                strings_str = strings_str + strings
+                strings = request.POST.get(',')
+                strings_str = strings_str + strings
+                for pip in number_list:
+                    strings = request.POST.get(pip)
+                    strings_str = strings_str + strings
+            param_list = []
+            param_list = strings_str.split(",")
+            param = []
+            j = 1
+            for pop in param_list:
+                if j % 2 == 1:
+                   test_list = []
+                   test_list.append(pop)
+                else :
+                    if j%2 == 0 :
+                        pop = int(pop)
+                        test_list.append(pop)
+                        param.append(tuple(test_list))
+                j = j+1
+            # param = [('a', 3),('b', 12),('c', 6),('d', 1),('e', 11),('f', 2)]
+            result=[str(i) for i in param]
+            d=''.join(result)
+            # print(d)
+            huffman_tree = huffman.HuffmanTree()
+            huffman_tree.creat_HuffmanTree(param)
+
+            huffman.ShowHuffmanBiTree(huffman_tree.root).save_BiTree_1()
+            huffman.ShowHuffmanBiTree(huffman_tree.root).PostOrderTree(huffman_tree.root)
+            # print("前序遍历:")
+            result=[str(i) for i in huffman.nalue_1]
+            a=''.join(result)
+            # print(a)
+            huffman.ShowHuffmanBiTree(huffman_tree.root).PreOrderTree(huffman_tree.root)
+            # print("后序遍历:")
+            result=[str(i) for i in huffman.nalue_2]
+            b=''.join(result)
+            # print(b)
+            huffman.ShowHuffmanBiTree(huffman_tree.root).InOrderTree(huffman_tree.root)
+            # print("中序遍历:")
+            result=[str(i) for i in huffman.nalue_3]
+            c=''.join(result)
+            # print(c)
+            f = huffman.figure_save_path+"\\"+huffman.figure_save+".png"
+
+            # print(f)
+            with open(f, "rb") as file:
+                image = file.read()
+            Binary_tree_1.objects.create(img=image, frontanswer=d, firstanswer=a, middleanswer=c,endanswer=b, explain='binarytree')
+        except:
+            {}
+
+
+def getProductByID(request):
+    if request.method == "GET":
+        mod = Binary_tree_1.objects  # 获取DProduct模型的Model操作对象
+        ProductList = mod.filter(product_id=Binary_tree_1.id).values()
+        ProductList = list(ProductList)  # 转化为列表属性
+        return JsonResponse({'data':ProductList})

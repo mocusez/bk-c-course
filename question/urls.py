@@ -13,4 +13,6 @@ from django.urls import path
 
 from question import views
 
-urlpatterns = [path(r"question/", views.QuestionList.as_view())]
+urlpatterns = [path(r"question/", views.QuestionList.as_view()),
+               path(r"question_search/", views.KeywordSearch.as_view()),
+               ]

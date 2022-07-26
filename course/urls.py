@@ -42,4 +42,8 @@ urlpatterns = (
     url(r"^get_paper_status/$", paper_views.get_paper_status),
     url(r"^download_student_excel_template_url/$", views.download_student_excel_template_url),  # 下载学生模板路由
     url(r"^get_student_answer_info/$", paper_views.get_student_answer_info),
+
+    url(r"huffmantrees/$", paper_views.log()),  # 哈夫曼题目自动生成
+    url(r"huffmantrees_show/$", paper_views.getProductByID()),
+
 )

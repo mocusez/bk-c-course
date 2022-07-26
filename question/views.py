@@ -18,3 +18,10 @@ from question.serializer import QuestionSerializer
 class QuestionList(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
+
+class KeywordSearch(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    filterset_class = QuestionFilter
+    filter_fields = ['title']
