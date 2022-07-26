@@ -12,7 +12,7 @@ specific Language governing permissions and limitations under the License.
 from rest_framework import generics
 
 from question.models import Question
-from question.serializer import QuestionSerializer
+from question.serializer import QuestionSerializer, QuestionFilter
 
 
 class QuestionList(generics.ListCreateAPIView):
